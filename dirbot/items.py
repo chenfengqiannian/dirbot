@@ -2,7 +2,9 @@ from scrapy.item import Item, Field
 
 
 class Website(Item):
-
+    didian=Field()
     name = Field()
-    description = Field()
-    url = Field()
+
+    phone=Field()
+    title=Field()
+
