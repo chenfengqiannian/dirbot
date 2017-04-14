@@ -25,8 +25,8 @@ class AutoProxyMiddleware(object):
         ('test_threadnums', 20),
         ('ban_code', [503, ]),
         ('ban_re', r''),
-        ('proxy_least', 2),
-        ('init_valid_proxys', 2),
+        ('proxy_least', 3),
+        ('init_valid_proxys', 3),
         ('invalid_limit', 200),
     ]
 

@@ -10,7 +10,7 @@ class WriteDatabasePipeline(object):
     # put all words in lowercase
     words_to_filter = ['politics', 'religion']
     def open_spider(self,spider):
-        self.conn= MySQLdb.connect(db='zhaogefang', host='120.27.30.221', user='root', passwd='xhgm19111010',charset="utf8")
+        self.conn= MySQLdb.connect(db='zhaogefang', host='127.0.0.1', user='zhaogefang', passwd='ZgFqweasd123',charset="utf8")
 
         logger.debug("start connect##################")
 
@@ -29,8 +29,12 @@ class WriteDatabasePipeline(object):
         item["tel"]=item["tel"].replace(' ', '').replace("tel:","")
 
         cursor = self.conn.cursor()
-
+        b=re.compile("(\d{4})")
         a=re.compile("(\d{11})")
+	if("builddate" in item):
+	    if(b.match(item["builddate"])==None):
+		#print ("MMMMMMMMMMMMMMMMMMMMMM")
+		item["builddate"]=0
         if(a.match(item["tel"])==None):
             raise DropItem("no tel")
         if("community" in item):
@@ -59,20 +63,21 @@ class WriteDatabasePipeline(object):
         value = value.replace("\r", "")
         value = value.replace("u'", "'")
         value=value.decode('unicode_escape')
-        print "#####################"
+        #print "#####################"
 
         sqlinsert = "INSERT INTO jn_house_leasesale_gather "+keys+" VALUES "+value
 
-        print sqlinsert
+        #print sqlinsert
         try:
 
             cursor.execute(sqlinsert)
 
             self.conn.commit()
-            print u"success"
-        except:
-            # Rollback in case there is any error
-            print u"fial"
+            #print u"success"
+        except Exception, e:
+            print e
+		# Rollback in case there is any error
+            #print u"fial"
             self.conn.rollback()
 
 
