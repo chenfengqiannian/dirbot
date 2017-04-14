@@ -121,11 +121,11 @@ class DmozSpider(Spider):
     def parsedetail2(self,response,item):
 
 
-        item["title"]=response.css('.bigtitle h1::text').extract_first().strip()
-        item["price"]=float(response.css('span.bigpri.arial::text').extract_first().strip())
+        item["title"]=response.css('.house-title h1::text').extract_first().strip()
+        item["price"]=float(response.css('p.house-basic-item1 span.price::text').extract_first().strip())
         item['rtype']=2
 
-        item['community']=response.css('#fyms > div.xiaoqu.f12.c_666.clearfix.mb15 > div.xiaoqu_txt > p:nth-child(1) > a::text').extract_first().strip()
+        item['community']=response.css('span.c_000.mr_10 > a::text').extract_first().strip()
 
 
 

@@ -19,7 +19,7 @@ ITEM_PIPELINES = {'dirbot.pipelines.WriteDatabasePipeline': 1}
 
 DOWNLOADER_MIDDLEWARES = {
 'dirbot.userag.RotateUserAgentMiddleware': 300,
-    'dirbot.autoproxy.AutoProxyMiddleware': 400,
+    'dirbot.autoproxy.AutoProxyMiddleware': None,
 'scrapy.contrib.downloadermiddleware.redirect.RedirectMiddleware':None,
 
 }
