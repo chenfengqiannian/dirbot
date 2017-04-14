@@ -79,7 +79,7 @@ class DmozSpiderp(Spider):
 
                     item['url'] =html
                     #next_peitao="https://m.fang.com/zf/jn/JX_"+htmlpeitao[0]+".html"
-                    ##print next_peitao
+                    ###print next_peitao
 
                     #yield scrapy.Request(url=next_peitao, callback=lambda res, b=item: self.parsedetailpeitao(res, b))
                     yield scrapy.Request(url=html, callback=lambda res, b=item: self.parsedetail2(res, b))
@@ -235,14 +235,14 @@ class DmozSpiderp(Spider):
                 item['img'] = filename
 
             im.save(filename)
-            #print('写入文件:%s' % filename)
+            ##print('写入文件:%s' % filename)
             tu = tu - 1
             if (tu <= 0):
                 yield item
-            #print response.status
+            ##print response.status
 
 
 
                 #yield scrapy.Request(url=next_url, callback=self.parsedetail)
 
-                ##print (self.count)
+                ###print (self.count)

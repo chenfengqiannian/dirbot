@@ -32,16 +32,17 @@ def init():
         t =threading.Thread(target=doe,args=(i,))
         threads.append(t)
 def run():
-    print("starttime")    
-    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))) 
-    print(threads)
+    #print("starttime")
+    #print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+    #print(threads)
     for i in threads:
 	    i.start()
     for i in threads:
 	    threads.remove(i)
     i.join(1800)
-    print("endtime")
+    #print("endtime")
     init()
     run()
 init()
-run()
+#run()
+doe(0)

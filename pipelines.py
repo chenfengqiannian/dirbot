@@ -33,7 +33,7 @@ class WriteDatabasePipeline(object):
         a=re.compile("(\d{11})")
 	if("builddate" in item):
 	    if(b.match(item["builddate"])==None):
-		#print ("MMMMMMMMMMMMMMMMMMMMMM")
+		##print ("MMMMMMMMMMMMMMMMMMMMMM")
 		item["builddate"]=0
         if(a.match(item["tel"])==None):
             raise DropItem("no tel")
@@ -63,21 +63,21 @@ class WriteDatabasePipeline(object):
         value = value.replace("\r", "")
         value = value.replace("u'", "'")
         value=value.decode('unicode_escape')
-        #print "#####################"
+        ##print "#####################"
 
         sqlinsert = "INSERT INTO jn_house_leasesale_gather "+keys+" VALUES "+value
 
-        #print sqlinsert
+        ##print sqlinsert
         try:
 
             cursor.execute(sqlinsert)
 
             self.conn.commit()
-            #print u"success"
+            ##print u"success"
         except Exception, e:
-            print e
+            #print e
 		# Rollback in case there is any error
-            #print u"fial"
+            ##print u"fial"
             self.conn.rollback()
 
 

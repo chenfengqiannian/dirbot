@@ -59,20 +59,20 @@ class WriteDatabasePipeline(object):
         value = value.replace("\r", "")
         value = value.replace("u'", "'")
         value=value.decode('unicode_escape')
-        print "#####################"
+        #print "#####################"
 
         sqlinsert = "INSERT INTO jn_house_leasesale_gather "+keys+" VALUES "+value
 
-        print sqlinsert
+        #print sqlinsert
         try:
 
             cursor.execute(sqlinsert)
 
             self.conn.commit()
             print u"success"
-        except:
+        except Exception,e:
             # Rollback in case there is any error
-            print u"fial"
+            print u"fial"+e
             self.conn.rollback()
 
 

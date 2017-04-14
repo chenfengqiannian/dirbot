@@ -74,9 +74,10 @@ class DmozSpider(Spider):
 
                 next_url_get_phone="http://wap.58.com/jn/ershoufang/"+html[0]+"x.shtml?device=wap&PGTID=0d40000c-0078-06d8-1615-5d61c34fad4e&ClickID=5"
                 next_url="http://jn.58.com/ershoufang/"+html[0]+"x.shtml"
+
                 item = Website()
                 item["cityjx"] = cityname
-                print next_url
+                #print next_url
                 item['url']=next_url
                 yield scrapy.Request(url=next_url_get_phone, callback=lambda res, b=item: self.parsedetail(res, b))
                 yield scrapy.Request(url=next_url, callback=lambda res, b=item: self.parsedetail2(res, b))
@@ -98,8 +99,8 @@ class DmozSpider(Spider):
         if(response.css('body > div > font')):
 
             phone=response.css('body > div > font::text').extract_first().strip()
-            print "$$#$#$#$#"
-            print phone
+            #print "$$#$#$#$#"
+            #print phone
             count=response.xpath('/html/body/div/text()[13]').extract_first().strip()
 
             pattern = re.compile(u"第([0-9]{1,})层")
@@ -114,8 +115,6 @@ class DmozSpider(Spider):
 
 
 
-
-
             item['tel']=phone
 
             #yield item
@@ -127,6 +126,8 @@ class DmozSpider(Spider):
         item['rtype']=2
 
         item['community']=response.css('#fyms > div.xiaoqu.f12.c_666.clearfix.mb15 > div.xiaoqu_txt > p:nth-child(1) > a::text').extract_first().strip()
+
+
 
         huxing=response.css('#main > div.col.detailPrimary.mb15 > div.col_sub.maintop.mb30.clearfix > div.col_sub.sumary > ul > li:nth-child(4) > div.su_con::text').extract_first().strip()
 
@@ -163,15 +164,20 @@ class DmozSpider(Spider):
         item['linkman']=response.css('.su_tit+div a[rel=nofollow]::text').extract_first().strip()
 
         sel = response.css('script::text')[0].extract()
-        print sel
+        #print sel
         latpattern = re.compile(r'"baidulat":(.*?),')
         lonpattern=re.compile(r'"baidulon":(.*?),')
+        timepattern=re.compile(r'"I":"9773","V":"(\d)*"')
         lat=latpattern.findall(sel)[0]
         lon=lonpattern.findall(sel)[0]
-        print lat
-        print lon
+        timestring=timepattern.findall(sel)[0]
+        #print lat
+        #print lon
 
+        import time
+        mtime = int(time.mktime(time.strptime(timestring, '%Y%m%d%H%M%S')))
 
+        item['updatetime'] = mtime
 
         if(lat!='null'):
             lon=lon.replace("}","")
@@ -210,13 +216,12 @@ class DmozSpider(Spider):
                 item['img'] = filename
 
             im.save(filename)
-            print('写入文件:%s%d' % (filename,tu))
+            #print('写入文件:%s%d' % (filename,tu))
             tu=tu-1
 
             if(tu<=0):
                 yield item
-        else:
-            print response.status
+
 
 
 
@@ -256,7 +261,7 @@ class IPSpider(Spider):
 
         for site in sites:
             if(site.css("span::text").extract()):
-                print site.css("span::text").extract()
+                #print site.css("span::text").extract()
 
 
 '''

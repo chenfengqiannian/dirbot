@@ -76,7 +76,7 @@ class DmozSpider(Spider):
                 next_url="http://jn.58.com/ershoufang/"+html[0]+"x.shtml"
                 item = Website()
                 item["cityjx"] = cityname
-                #print next_url
+                ##print next_url
                 item['url']=next_url
                 yield scrapy.Request(url=next_url_get_phone, callback=lambda res, b=item: self.parsedetail(res, b))
                 yield scrapy.Request(url=next_url, callback=lambda res, b=item: self.parsedetail2(res, b))
@@ -98,8 +98,8 @@ class DmozSpider(Spider):
         if(response.css('body > div > font')):
 
             phone=response.css('body > div > font::text').extract_first().strip()
-            #print "$$#$#$#$#"
-            #print phone
+            ##print "$$#$#$#$#"
+            ##print phone
             count=response.xpath('/html/body/div/text()[13]').extract_first().strip()
 
             pattern = re.compile(u"第([0-9]{1,})层")
@@ -163,13 +163,13 @@ class DmozSpider(Spider):
         item['linkman']=response.css('.su_tit+div a[rel=nofollow]::text').extract_first().strip()
 
         sel = response.css('script::text')[0].extract()
-        #print sel
+        ##print sel
         latpattern = re.compile(r'"baidulat":(.*?),')
         lonpattern=re.compile(r'"baidulon":(.*?),')
         lat=latpattern.findall(sel)[0]
         lon=lonpattern.findall(sel)[0]
-        #print lat
-        #print lon
+        ##print lat
+        ##print lon
 
 
 
@@ -210,12 +210,12 @@ class DmozSpider(Spider):
                 item['img'] = filename
 
             im.save(filename)
-            #print('写入文件:%s%d' % (filename,tu))
+            ##print('写入文件:%s%d' % (filename,tu))
             tu=tu-1
 
             if(tu<=0):
                 yield item
-            #print response.status
+            ##print response.status
 
 
 
@@ -255,7 +255,7 @@ class IPSpider(Spider):
 
         for site in sites:
             if(site.css("span::text").extract()):
-                #print site.css("span::text").extract()
+                ##print site.css("span::text").extract()
 
 
 '''

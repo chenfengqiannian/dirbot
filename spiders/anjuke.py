@@ -81,7 +81,7 @@ class DmozSpiderp(Spider):
 
 
                     #next_peitao="https://m.fang.com/zf/jn/JX_"+htmlpeitao[0]+".html"
-                    ##print next_peitao
+                    ###print next_peitao
                     item = Website()
                     item['url'] = html
                     item["cityjx"] = cityname
@@ -216,17 +216,17 @@ class DmozSpiderp(Spider):
                 item['img'] = filename
 
             im.save(filename)
-            #print('写入文件:%s' % filename)
+            ##print('写入文件:%s' % filename)
             tu=response.meta['tu']
             tu=tu-1
-            #print tu
+            ##print tu
             if(tu<=0):
                 yield item
             #yield item
-            #print response.status
+            ##print response.status
 
 
 
                 #yield scrapy.Request(url=next_url, callback=self.parsedetail)
 
-                ##print (self.count)
+                ###print (self.count)

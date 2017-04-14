@@ -23,6 +23,6 @@ class imagedown:
                 item['img'] = filename
 
             im.save(filename)
-            #print('写入文件:%s' % filename)
+            ##print('写入文件:%s' % filename)
             yield item
-            #print response.status
+            ##print response.status

@@ -77,7 +77,7 @@ class DmozSpiderp(Spider):
 
                     item['url'] =html
                     next_peitao="https://m.fang.com/zf/jn/JX_"+htmlpeitao[0]+".html"
-                    print next_peitao
+                    #print next_peitao
 
                     yield scrapy.Request(url=next_peitao, callback=lambda res, b=item: self.parsedetailpeitao(res, b))
                     yield scrapy.Request(url=html, callback=lambda res, b=item: self.parsedetail2(res, b))
@@ -110,6 +110,13 @@ class DmozSpiderp(Spider):
         item['cityjx'] = 'jn'
         if (response.css('#gerenzfxq_C02_06::text')):
             item['community'] = response.css('#gerenzfxq_C02_06::text').extract_first().strip()
+
+        timestring=response.css('body > div:nth-child(15) > div.h1-tit.rel > p.gray9 > span:nth-child(2)::text').extract_first().strip()
+        timestring=timestring.split("：")[1].strip()
+
+        import time
+        mtime = int(time.mktime(time.strptime(timestring, '%Y/%m/%d %H:%M:%S')))
+        item['updatetime'] = mtime
 
         huxing =  response.css("ul.house-info li:nth-child(2)::text").extract()
         item['orientations']=huxing[4]
@@ -219,15 +226,14 @@ class DmozSpiderp(Spider):
                 item['img'] = filename
 
             im.save(filename)
-            print('写入文件:%s' % filename)
+            #print('写入文件:%s' % filename)
             tu = tu - 1
             if (tu <= 0):
                 yield item
-        else:
-            print response.status
+
 
 
 
                 #yield scrapy.Request(url=next_url, callback=self.parsedetail)
 
-                #print (self.count)
+                ##print (self.count)

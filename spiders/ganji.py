@@ -85,7 +85,7 @@ class DmozSpiderp(Spider):
 
     def parsedetailimg(self,response,item):
         images = response.css('div.small-img > ul li')
-        #print images
+        ##print images
         tu = 0
         for image in images:
             if (image.css('::attr(data-image)')):
@@ -111,7 +111,7 @@ class DmozSpiderp(Spider):
 
         huxing = response.css("div.house-type > span:nth-child(1)::text").extract_first().strip()
         pingming=response.css("body > div.detail-list > div:nth-child(2) > div.house-mian-info > div:nth-child(1) > div.house-type > span:nth-child(2)::text").extract_first().strip()
-        #print huxing
+        ##print huxing
         pattern = re.compile(u"([0-9])室")
         pattern2 = re.compile(u"([0-9])厅")
 
@@ -141,7 +141,7 @@ class DmozSpiderp(Spider):
             'body > div.detail-list > div:nth-child(2) > div.house-xiaoqu > div.xq-addr.cont-padding > div::text').extract_first().strip()
         if (diqu):
 
-            #print diqu
+            ##print diqu
             pattern4 = re.compile(u"位置:(.*?)-")
 
             if(pattern4.findall(diqu)):
@@ -165,19 +165,19 @@ class DmozSpiderp(Spider):
 	item['updatetime']=mtime
 	if(response.css('body > div.detail-list > div:nth-child(2) > div.house-xiaoqu > div.map-wrap > a::attr(href)')):
             sel = response.css('body > div.detail-list > div:nth-child(2) > div.house-xiaoqu > div.map-wrap > a::attr(href)').extract_first().strip()
-            #print sel
+            ##print sel
             sellist=sel.split("/")
             if(sellist):
                 lat = sellist[4]
                 lon = sellist[5]
-                #print lat
-                #print lon
+                ##print lat
+                ##print lon
 
 
                 item['ixiy'] = lat + "," + lon
 
         count=response.css('body > div.detail-list > div:nth-child(2) > div.house-mian-info > div:nth-child(1) > div.house-type > span:nth-child(3)::text').extract_first().strip()
-        #print count
+        ##print count
         pattern6 = re.compile(u"共(.*)层")
         if (pattern6.findall(count)):
 
@@ -221,17 +221,17 @@ class DmozSpiderp(Spider):
                 item['img'] = filename
 
             im.save(filename)
-            #print('写入文件:%s' % filename)
+            ##print('写入文件:%s' % filename)
             tu = tu -1
-            #print tu
+            ##print tu
             if(tu<=0):
                 yield item
 
             #yield item
-            #print response.status
+            ##print response.status
 
 
 
                 #yield scrapy.Request(url=next_url, callback=self.parsedetail)
 
-                ##print (self.count)
+                ###print (self.count)
